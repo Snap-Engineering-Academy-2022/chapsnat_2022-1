@@ -8,23 +8,48 @@ export default function App() {
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
-    setMessages([
-      {
-        _id: 1,
-        text: 'Hello developer',
-        createdAt: new Date(),
-        user: {
-          _id: 2,
-          name: 'React Native',
-          avatar: 'https://placeimg.com/140/140/any',
-        },
-      },
-    ])
+
+    setMessages(history.reverse())
   }, [])
 
-  // const onSend = useCallback((messages = []) => {
-  //   setMessages(previousMessages => GiftedChat.append(previousMessages, messages))
-  // }, [])
+  let history = [
+    {
+      _id: 1,
+      text: 'Hello Bull',
+      createdAt: new Date(),
+      user: {
+        _id: 2,
+        name: 'Poco',
+        avatar: 'https://static.wikia.nocookie.net/brawlstars/images/2/24/Poco_Skin-Default.png/revision/latest?cb=20211112215606',
+      },
+    },
+    {
+      _id: 1,
+      text: 'How it goes',
+      createdAt: new Date(),
+      user: {
+        _id: 2,
+        name: 'Poco',
+        avatar: 'https://static.wikia.nocookie.net/brawlstars/images/2/24/Poco_Skin-Default.png/revision/latest?cb=20211112215606',
+      },
+    },
+
+    {
+      _id: 3,
+      text: 'Goodbye',
+      createdAt: new Date(),
+      user: {
+        _id: 4,
+        name: 'Bull',
+        avatar: 'https://static.wikia.nocookie.net/brawlstars/images/b/b7/Bull_Skin-Default.png/revision/latest/scale-to-width-down/1200?cb=20210913081903',
+      },
+    },
+
+  ]
+
+  const onSend = useCallback((messages = []) => {
+    setMessages(previousMessages => GiftedChat.append(previousMessages, messages))
+  }, [])
 
   return (
 
@@ -34,7 +59,11 @@ export default function App() {
       user={{
         _id: 1,
       }}
+      alwaysShowSend //send button always shows
+      renderUsernameOnMessage //show username
+      placeholder="WASSSSUPPPPP"
     />
+
 
     // <View style={styles.container}>
     //   <Text>Open up App.js to start working on your app!</Text>
