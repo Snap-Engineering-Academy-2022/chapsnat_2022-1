@@ -59,20 +59,16 @@ export default function App() {
       onSend={messages => onSend(messages)}
       user={{
         _id: 1,
-        avatar: "https://static.wikia.nocookie.net/brawlstars/images/0/04/El_Primo_Skin-Default.png/revision/latest?cb=20200225131129"
+        name: 'Primo',
+        avatar: "https://static.wikia.nocookie.net/brawlstars/images/0/04/El_Primo_Skin-Default.png/revision/latest?cb=20200225131129",
       }}
       alwaysShowSend //send button always shows
       renderUsernameOnMessage //show username
+      
       showUserAvatar={true} //show personal profile
       // inverted={true}
       placeholder="WASSSSUPPPPP"
     />
-
-
-    // <View style={styles.container}>
-    //   <Text>Open up App.js to start working on your app!</Text>
-    //   <StatusBar style="auto" />
-    // </View>
   
   );
 }
