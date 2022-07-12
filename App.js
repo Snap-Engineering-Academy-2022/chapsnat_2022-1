@@ -22,9 +22,9 @@ export default function App() {
     ])
   }, [])
 
-  const onSend = useCallback((messages = []) => {
-    setMessages(previousMessages => GiftedChat.append(previousMessages, messages))
-  }, [])
+  // const onSend = useCallback((messages = []) => {
+  //   setMessages(previousMessages => GiftedChat.append(previousMessages, messages))
+  // }, [])
 
   return (
 
