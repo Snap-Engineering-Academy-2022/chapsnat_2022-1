@@ -2,11 +2,37 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useState, useCallback, useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { GiftedChat } from 'react-native-gifted-chat'
-// import db from "./firebase";
+import db from "./firebase";
+import { collection, getDocs } from 'firebase/firestore';
 
 export default function App() {
 
   const [messages, setMessages] = useState([]);
+
+  // useEffect(() => {
+  //   db.collection("Chats")
+  //     .doc("myfirstchat")
+  //     .get()
+  //     .then((snapshot) => {
+  //       console.log(snapshot.id);
+  //       console.log(snapshot.data());
+  //     });
+  // }, []);
+
+
+  useEffect(() => {
+    async function getChat() {
+      console.log("starting get!")
+      const chatsCol = collection(db, 'Chats');
+      const chatsDoc = await getDocs(chatsCol);
+      const chatData = chatsDoc.docs.map(doc => doc.data());
+      console.log("here chatData", chatData);
+      setMessages(chatData[0].messages);
+    }
+
+    getChat();
+  }, []);
+
 
   useEffect(() => {
 
@@ -45,7 +71,6 @@ export default function App() {
         avatar: 'https://static.wikia.nocookie.net/brawlstars/images/b/b7/Bull_Skin-Default.png/revision/latest/scale-to-width-down/1200?cb=20210913081903',
       },
     },
-
   ]
 
   const onSend = useCallback((messages = []) => {
