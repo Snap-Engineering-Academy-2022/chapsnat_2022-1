@@ -3,7 +3,7 @@ import React, { useState, useCallback, useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { GiftedChat } from 'react-native-gifted-chat'
 import db from "./firebase";
-import { collection, getDocs, doc, updateDoc, setDoc, arrayUnion, arrayRemove, onSnapshot } from 'firebase/firestore';
+import { collection, getDocs, doc, updateDoc, setDoc, arrayUnion, onSnapshot } from 'firebase/firestore';
 
 export default function App() {
 
@@ -46,10 +46,6 @@ export default function App() {
     await updateDoc(doc(db, "Chats", "myfirstchat"), {
       messages: arrayUnion(messages[0])
     });
-
-    // await updateDoc(doc(db, "Chats", "myfirstchat"), {
-    //   messages: arrayRemove(messages[onSend])
-    // })
 
     setMessages(previousMessages => GiftedChat.append(previousMessages, messages))
   }, [])
