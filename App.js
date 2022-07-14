@@ -3,7 +3,7 @@ import React, { useState, useCallback, useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { GiftedChat } from 'react-native-gifted-chat'
 import db from "./firebase";
-import { collection, getDocs, doc, updateDoc, setDoc } from 'firebase/firestore';
+import { collection, getDocs, doc, updateDoc, setDoc, arrayUnion, arrayRemove, onSnapshot } from 'firebase/firestore';
 
 export default function App() {
 
@@ -16,33 +16,49 @@ export default function App() {
   // })
 
 
-  useEffect(() => {
-    async function getChat() {
-      console.log("starting get!")
-      const chatsCol = collection(db, 'Chats');
-      const chatsDoc = await getDocs(chatsCol);
-      const chatData = chatsDoc.docs.map(doc => doc.data());
-      console.log("here chatData", chatData);
-      setMessages(chatData[0].messages);
-    }
+  // useEffect(() => {
+  //   async function getChat() {
+  //     console.log("starting get!")
+  //     const chatsCol = collection(db, 'Chats');
+  //     const chatsDoc = await getDocs(chatsCol);
+  //     const chatData = chatsDoc.docs.map(doc => doc.data());
+  //     console.log("here chatData", chatData);
+  //     setMessages(chatData[0].messages);
+  //   }
 
-    getChat();
+  //   getChat();
+  // }, []);
+
+  useEffect(() => {
+    let unsubscribeFromNewSnapshots = onSnapshot(doc(db, "Chats", "myfirstchat"), (snapshot) => {
+      console.log("New Snapshot! ", snapshot.data().messages);
+      setMessages(snapshot.data().messages);
+    });
+  
+    return function cleanupBeforeUnmounting() {
+      unsubscribeFromNewSnapshots();
+    };
   }, []);
 
   
-  const onSend = useCallback(async (messages = []) => {
 
-    await setDoc(doc(db, "Chats", "myfirstchat"), {
-      messages: messages
+  const onSend = useCallback(async (messages = []) => {
+    await updateDoc(doc(db, "Chats", "myfirstchat"), {
+      messages: arrayUnion(messages[0])
     });
+
+    // await updateDoc(doc(db, "Chats", "myfirstchat"), {
+    //   messages: arrayRemove(messages[onSend])
+    // })
+
     setMessages(previousMessages => GiftedChat.append(previousMessages, messages))
-}, [])
+  }, [])
+
 
   return (
 
     <GiftedChat
       messages={messages}
-      
       onSend={messages => onSend(messages)}
       user={{
         _id: 1,
