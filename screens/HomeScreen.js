@@ -6,8 +6,9 @@ export default function HomeScreen({ navigation }) {
   const [chatList, setChatList] = useState([]);
 
   useEffect(() => {
-    let chatsRef = db.collection("Chats");
-    chatsRef.get().then((querySnapshot) => {
+    // let chatsRef = db.collection("Chats");
+    const chatsRef = collection(db, "Chats");
+    chatsRef.getDoc().then((querySnapshot) => {
       let newChatList = [];
       querySnapshot.forEach((doc) => {
         let newChat = { ...doc.data() };
