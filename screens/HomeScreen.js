@@ -3,35 +3,14 @@ import { FlatList, Text, View, TouchableOpacity, StyleSheet } from "react-native
 import db from "../firebase";
 
 export default function HomeScreen({ navigation }) {
-  const [chatList, setChatList] = useState([]);
-
-  useEffect(() => {
-    // let chatsRef = db.collection("Chats");
-    const chatsRef = collection(db, "Chats");
-    chatsRef.getDoc().then((querySnapshot) => {
-      let newChatList = [];
-      querySnapshot.forEach((doc) => {
-        let newChat = { ...doc.data() };
-        newChat.id = doc.id;
-        newChatList.push(newChat);
-        console.log(newChatList);
-      });
-      setChatList(newChatList);
-    });
-  }, []);
 
   return (
     <View style={styles.container}>
-      <FlatList
-        data={chatList}
-        renderItem={({ item }) => (
-          <TouchableOpacity
-            onPress={() => navigation.navigate("Chat")}
-          >
-            <Text style={styles.item}>{item.id}</Text>
+	  <TouchableOpacity
+	    onPress={() => navigation.navigate("Chat")}
+	  >
+          	<Text style={styles.item}>{item.id}</Text>
           </TouchableOpacity>
-        )}
-      />
     </View>
   );
 }
