@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Text, View, TouchableOpacity, StyleSheet } from "react-native";
+import { Text, View, TouchableOpacity, StyleSheet, Dimensions, Image } from "react-native";
 import { getAuth, signOut } from "firebase/auth";
 
 
@@ -60,6 +60,13 @@ export default function HomeScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
+	container: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'yellow',
+        height: Dimensions.get('window').height,
+        width: Dimensions.get('window').width,
+    },
 	logoutBtn: {
 		width:"50%",
 		borderRadius:25,
@@ -75,6 +82,8 @@ const styles = StyleSheet.create({
 		backgroundColor: "#fff",
 	},
 	item: {
+		justifyContent: 'center',
+		alignItems: 'center',
 		padding: 10,
 		fontSize: 18,
 		height: 44,

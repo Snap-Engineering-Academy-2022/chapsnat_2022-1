@@ -1,4 +1,4 @@
-import { Text, View, TextInput, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
+import { Text, View, TextInput, StyleSheet, TouchableOpacity, Dimensions, Image } from 'react-native';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import {useState} from "react"
 
@@ -26,6 +26,7 @@ export default function LoginScreen({navigation}) {
 	return (
 		<>
         <View style={styles.container}>
+			<Image source={require("../assets/login.png")} style={styles.logo} />
 			<Text style={styles.bigBlue}>Login Here</Text>
 			<View style={styles.inputView}>
 				<TextInput
@@ -45,7 +46,7 @@ export default function LoginScreen({navigation}) {
             <TouchableOpacity style={styles.redirectBtn} onPress={() => {
                 navigation.navigate("Signup")
             }}>
-                <Text>Don't have an account? Sign up here</Text>
+                <Text style={styles.redirectText}>Don't have an account? Sign up here</Text>
             </TouchableOpacity>
 			<TouchableOpacity style={styles.loginBtn} onPress={() => {
 				handleSubmit();
@@ -65,6 +66,11 @@ const styles = StyleSheet.create({
         height: Dimensions.get('window').height,
         width: Dimensions.get('window').width,
     },
+	logo: {
+		height: 100,
+		width: 190,
+		resizeMode: 'contain',
+	},
 	redirectBtn: {
 		width:"80%",
 		borderRadius:25,
@@ -72,8 +78,11 @@ const styles = StyleSheet.create({
 		alignItems:"center",
 		justifyContent:"center",
 		marginTop:40,
-		backgroundColor:"grey",
+		backgroundColor:"#0096FF",
 		color: "white"
+	},
+	redirectText: {
+		color: 'white',
 	},
 	inputView: {
 		backgroundColor: "#fff",
@@ -101,8 +110,11 @@ const styles = StyleSheet.create({
 		marginTop:40,
 		backgroundColor:"#FF1493",
 	},
+	loginText: {
+		color: 'white',
+	},
 	bigBlue: {
-		color: 'blue',
+		color: 'black',
 		fontWeight: 'bold',
 		fontSize: 30,
 		padding: 50

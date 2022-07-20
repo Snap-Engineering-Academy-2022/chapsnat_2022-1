@@ -1,4 +1,4 @@
-import { Text, View, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
+import { Text, View, TextInput, StyleSheet, TouchableOpacity, Dimensions, Image } from 'react-native';
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import {useState} from "react"
 
@@ -33,6 +33,8 @@ export default function LoginScreen({navigation}) {
     console.log("auth object", auth)
 	return (
 		<>  
+		<View style = {styles.container}>
+			<Image source={require("../assets/signup.png")} style={styles.logo} />
             {/* styles.___ connects each component to the StyleSheet below*/}
 			<Text style={styles.bigBlue}>Signup Here</Text>
 			<View style={styles.inputView}>
@@ -60,13 +62,28 @@ export default function LoginScreen({navigation}) {
             <TouchableOpacity style={styles.redirectBtn} onPress={() => {
                     navigation.navigate("Login") 
                 }}>
-                <Text>Already have an account? Login here</Text>
+                <Text style={styles.redirectText}>Already have an account? Login here</Text>
             </TouchableOpacity>
+		</View>
 		</>
 	)
 }
 
 const styles = StyleSheet.create({
+	container: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'yellow',
+        height: Dimensions.get('window').height,
+        width: Dimensions.get('window').width,
+    },
+	logo: {
+		justifyContent: 'center',
+		alignItems: 'center',
+		height: 100,
+		width: 190,
+		resizeMode: 'contain',
+	},
 	redirectBtn: {
 		width:"80%",
 		borderRadius:25,
@@ -74,15 +91,19 @@ const styles = StyleSheet.create({
 		alignItems:"center",
 		justifyContent:"center",
 		marginTop:40,
-		backgroundColor:"grey",
+		backgroundColor:"#0096FF",
 		color: "white"
 	},
+	redirectText: {
+		color: 'white',
+	},
 	inputView: {
-		backgroundColor: "#FFC0CB",
+		backgroundColor: "#fff",
 		borderRadius: 30,
 		width: "70%",
 		height: 45,
 		marginBottom: 20,
+        justifyContent: 'center',
 		alignItems: "center",
 	},
 	TextInput: {
@@ -100,8 +121,11 @@ const styles = StyleSheet.create({
 		marginTop:40,
 		backgroundColor:"#FF1493",
 	},
+	loginText: {
+		color: 'white',
+	},
 	bigBlue: {
-		color: 'blue',
+		color: 'black',
 		fontWeight: 'bold',
 		fontSize: 30,
 		padding: 50
