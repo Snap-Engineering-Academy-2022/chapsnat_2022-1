@@ -1,4 +1,4 @@
-import { Text, View, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
+import { Text, View, TextInput, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import {useState} from "react"
 
@@ -25,6 +25,7 @@ export default function LoginScreen({navigation}) {
 
 	return (
 		<>
+        <View style={styles.container}>
 			<Text style={styles.bigBlue}>Login Here</Text>
 			<View style={styles.inputView}>
 				<TextInput
@@ -51,11 +52,19 @@ export default function LoginScreen({navigation}) {
 			}}>
 				<Text style={styles.loginText}>LOGIN</Text>
 			</TouchableOpacity>
+        </View>
 		</>
 	)
 }
 
 const styles = StyleSheet.create({
+    container: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'yellow',
+        height: Dimensions.get('window').height,
+        width: Dimensions.get('window').width,
+    },
 	redirectBtn: {
 		width:"80%",
 		borderRadius:25,
@@ -67,11 +76,12 @@ const styles = StyleSheet.create({
 		color: "white"
 	},
 	inputView: {
-		backgroundColor: "#FFC0CB",
+		backgroundColor: "#fff",
 		borderRadius: 30,
 		width: "70%",
 		height: 45,
 		marginBottom: 20,
+        justifyContent: 'center',
 		alignItems: "center",
 	},
 	TextInput: {
@@ -79,6 +89,8 @@ const styles = StyleSheet.create({
 		flex: 1,
 		padding: 10,
 		marginLeft: 20,
+        justifyContent: 'center',
+        alignItems: 'center',
 	},
 	loginBtn: {
 		width:"80%",
