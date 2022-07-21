@@ -37,7 +37,6 @@ export default function ChatScreen({ navigation }) {
 <>
     {console.log(user, "testing chatsreen")}
     {console.log(userData, "testing chatsreen")}
-    {/* <Text>LOADED</Text> */}
 
 
     <GiftedChat
@@ -48,7 +47,7 @@ export default function ChatScreen({ navigation }) {
         _id: user.uid,
         // name: {userData},
         // avatar: "https://placeimg.com/140/140/any",
-          name: userData.name,
+        name: userData.name,
 
         // userData
       }}

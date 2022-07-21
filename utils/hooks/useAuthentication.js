@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import { getAuth, onAuthStateChanged, User } from 'firebase/auth';
 import { doc, getDoc, collection, onSnapshot, arrayUnion, updateDoc } from "firebase/firestore";
 import db from "../../firebase";
+// import { useAuthentication } from '../utils/hooks/useAuthentication';
 
 const auth = getAuth();
 

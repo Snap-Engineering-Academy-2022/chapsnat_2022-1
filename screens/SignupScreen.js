@@ -1,10 +1,15 @@
 import { Text, View, TextInput, StyleSheet, TouchableOpacity, Dimensions, Image } from 'react-native';
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import {useState} from "react"
+import { doc, setDoc } from "firebase/firestore"; 
+import db from "../firebase";
+import { useCardAnimation } from '@react-navigation/stack';
+import { useAuthentication } from '../utils/hooks/useAuthentication';
 
 export default function LoginScreen({navigation}) {
 	const [email, setEmail] = useState();
 	const [password, setPassword] = useState();
+	const { user, userData } = useAuthentication();
 
     //why is there no parameter passed into getAuth?
 	const auth = getAuth();
@@ -16,17 +21,25 @@ export default function LoginScreen({navigation}) {
 
         //can control order of code; cannot use await unless it's inside async
         //async func won't activate until handleSubmit; otherwise it'd go in order , skipping handleSumbit
-        //don't return until function is executed
-		await createUserWithEmailAndPassword(auth, email, password)
+        //don't return until function is executed	  
+		createUserWithEmailAndPassword(auth, email, password)
 		.then((userCredential) => {
 			const user = userCredential.user;
 			auth.currentUser = user;
+			console.log("making a new user on firestroe");
+        setDoc(doc(db, "Users", user.uid), {
+          // make sure to change these to match the fields on your firestore!
+          name: user.email,
+          pronouns: "she / her",
+        });
 		})
 		.catch((error) => {
 			const errorCode = error.code;
 			const errorMessage = error.message; //when errorMessage isn't being used. color fades to dark blue. when console.loged, turns to light blue
             console.log(errorCode, "<---- error code");
             console.log(errorMessage, "<--- error message")
+
+			console.log("Error when signing up new user:".error);
 		});
 	}
 
