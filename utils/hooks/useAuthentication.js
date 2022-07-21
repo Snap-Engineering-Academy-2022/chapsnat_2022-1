@@ -3,11 +3,11 @@ import { getAuth, onAuthStateChanged, User } from 'firebase/auth';
 import { doc, getDoc, collection, onSnapshot, arrayUnion, updateDoc } from "firebase/firestore";
 import db from "../../firebase";
 
+const auth = getAuth();
+
 export function useAuthentication() {
 	const [user, setUser] = useState();
 	const [userData, setUserData] = useState();
-
-	const auth = getAuth();
 
 	useEffect(() => {
 		const unsubscribeFromAuthStatusChanged = onAuthStateChanged(auth, (user) => {
@@ -22,9 +22,10 @@ export function useAuthentication() {
 				console.log("print uid", uid)
 				// console.log(db.users.uid.name)
 				console.log(dataSnapshot.data())
+				setUserData(dataSnapshot.data())
             })
 
-			// setUser(user);
+			setUser(user);
 		} else {
 			// User is signed out
 			setUser(undefined);
@@ -35,6 +36,7 @@ export function useAuthentication() {
 	}, []);
 
 	return {
-		user
+		user,
+		userData
 	};
 }
